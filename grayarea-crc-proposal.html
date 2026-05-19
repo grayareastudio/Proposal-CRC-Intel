@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Proposal — Gray Area × Capital Region Co</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #FFFFFF;
+  --ink:      #080808;
+  --gray:     #717171;
+  --gray-lt:  #BEBEBE;
+  --border:   #E4E4E4;
+  --border-dk:#999999;
+  --off:      #F7F7F7;
+  --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  color-scheme: light only;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 52px; padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.logo { display: flex; align-items: center; }
+.logo-word { font-family: 'Bebas Neue', sans-serif; font-size: 19px; letter-spacing: 0.05em; color: var(--ink); }
+.logo-pipe { width: 1px; height: 13px; background: var(--border-dk); margin: 0 12px; }
+.logo-client { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 300; letter-spacing: 0.15em; color: var(--gray); text-transform: uppercase; }
+.topbar-right { display: flex; align-items: center; gap: 24px; }
+.nav-link { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.15s; }
+.nav-link:hover { color: var(--ink); }
+.btn-accept {
+  background: var(--ink); color: #fff; border: none;
+  padding: 9px 20px; font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+  cursor: pointer; transition: opacity 0.15s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-accept:hover { opacity: 0.75; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 48px 64px;
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+
+.hero-bg-text {
+  position: absolute; top: 52px; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(100px, 18vw, 240px);
+  letter-spacing: 0.04em;
+  color: var(--off);
+  user-select: none; pointer-events: none;
+  line-height: 0.9;
+  text-align: center;
+}
+
+.hero-content { position: relative; z-index: 2; max-width: 820px; }
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray);
+  display: flex; align-items: center; gap: 12px; margin-bottom: 32px;
+}
+.hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--ink); }
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 9vw, 110px);
+  line-height: 0.92; letter-spacing: 0.03em;
+  color: var(--ink); margin-bottom: 40px;
+}
+.hero-title .dim { color: var(--gray-lt); display: block; }
+
+.hero-meta {
+  display: flex; gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+.hero-mi { flex: 1; padding: 16px 0; display: flex; flex-direction: column; gap: 4px; border-right: 1px solid var(--border); }
+.hero-mi:first-child { padding-right: 24px; }
+.hero-mi:not(:first-child) { padding-left: 24px; }
+.hero-mi:last-child { border-right: none; }
+.hero-ml { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gray-lt); }
+.hero-mv { font-size: 14px; font-weight: 400; color: var(--ink); }
+
+.hero-body { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--gray); max-width: 580px; }
+
+/* ── SECTION ── */
+.section { padding: 80px 48px; border-bottom: 1px solid var(--border); }
+.section:last-child { border-bottom: none; }
+
+.section-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 48px;
+}
+.section-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ink); }
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 0.95; letter-spacing: 0.03em;
+  color: var(--ink); margin-bottom: 32px;
+}
+.section-title .dim { color: var(--gray-lt); }
+
+.section-body { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--gray); max-width: 640px; margin-bottom: 48px; }
+
+/* ── SCOPE GRID ── */
+.scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.scope-item { background: var(--bg); padding: 32px; }
+.scope-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--border); line-height: 1; margin-bottom: 8px; }
+.scope-title { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+.scope-body { font-size: 13px; font-weight: 300; color: var(--gray); line-height: 1.7; margin-bottom: 16px; }
+.scope-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.scope-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); color: var(--gray); }
+
+/* ── PHASE TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.phase {
+  display: grid; grid-template-columns: 120px 1px 1fr;
+  gap: 0 32px; padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+  animation: fadeUp 0.5s ease both;
+}
+.phase:last-child { border-bottom: none; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+.phase:nth-child(1) { animation-delay: 0.05s; }
+.phase:nth-child(2) { animation-delay: 0.10s; }
+.phase:nth-child(3) { animation-delay: 0.15s; }
+.phase:nth-child(4) { animation-delay: 0.20s; }
+
+.phase-label { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; }
+.phase-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--border); line-height: 1; }
+.phase-dur { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-lt); }
+.phase-line { background: var(--border); width: 1px; }
+.phase-content { padding: 4px 0 0; }
+.phase-title { font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+.phase-body { font-size: 13px; font-weight: 300; color: var(--gray); line-height: 1.7; margin-bottom: 14px; }
+.phase-deliverables { display: flex; flex-direction: column; gap: 5px; }
+.phase-del {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 12px; font-weight: 300; color: var(--gray);
+}
+.phase-del::before { content: '—'; color: var(--border-dk); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 10px; }
+
+/* ── PRICING ── */
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 32px; }
+.price-card { background: var(--bg); padding: 36px 32px; position: relative; }
+.price-card.featured { background: var(--ink); }
+.price-badge {
+  font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.14em;
+  text-transform: uppercase; padding: 3px 8px; margin-bottom: 20px;
+  display: inline-block;
+}
+.price-card:not(.featured) .price-badge { border: 1px solid var(--border); color: var(--gray); }
+.price-card.featured .price-badge { background: #fff; color: var(--ink); }
+.price-tier { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.04em; margin-bottom: 6px; }
+.price-card:not(.featured) .price-tier { color: var(--ink); }
+.price-card.featured .price-tier { color: #fff; }
+.price-amount { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 0.02em; line-height: 1; margin-bottom: 4px; }
+.price-card:not(.featured) .price-amount { color: var(--ink); }
+.price-card.featured .price-amount { color: #fff; }
+.price-period { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 28px; }
+.price-card:not(.featured) .price-period { color: var(--gray-lt); }
+.price-card.featured .price-period { color: rgba(255,255,255,0.4); }
+.price-divider { height: 1px; margin-bottom: 24px; }
+.price-card:not(.featured) .price-divider { background: var(--border); }
+.price-card.featured .price-divider { background: rgba(255,255,255,0.12); }
+.price-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.pf { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; font-weight: 300; }
+.price-card:not(.featured) .pf { color: var(--gray); }
+.price-card.featured .pf { color: rgba(255,255,255,0.75); }
+.pf-check { flex-shrink: 0; width: 14px; height: 14px; margin-top: 1px; }
+.price-card:not(.featured) .pf-check { color: var(--ink); }
+.price-card.featured .pf-check { color: rgba(255,255,255,0.5); }
+.pf-muted { opacity: 0.35; }
+
+.price-btn {
+  width: 100%; padding: 12px; font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.15s; border: none;
+}
+.price-card:not(.featured) .price-btn { background: transparent; border: 1px solid var(--border); color: var(--gray); }
+.price-card:not(.featured) .price-btn:hover { border-color: var(--ink); color: var(--ink); }
+.price-card.featured .price-btn { background: #fff; color: var(--ink); }
+.price-card.featured .price-btn:hover { background: #ddd; }
+
+.price-note { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gray); letter-spacing: 0.06em; line-height: 1.7; }
+
+/* ── LINE ITEM TABLE ── */
+.line-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.line-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-lt); font-weight: 400; padding: 0 0 12px; text-align: left; border-bottom: 1px solid var(--border); }
+.line-table th:last-child { text-align: right; }
+.line-table td { padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 300; color: var(--ink); vertical-align: top; }
+.line-table td:last-child { text-align: right; font-family: 'DM Mono', monospace; font-size: 12px; white-space: nowrap; }
+.line-table tr:last-child td { border-bottom: none; }
+.line-desc { font-size: 11px; color: var(--gray); margin-top: 3px; }
+.line-total { display: flex; justify-content: space-between; align-items: baseline; padding: 20px 0; border-top: 2px solid var(--ink); }
+.line-total-lbl { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); }
+.line-total-val { font-family: 'Bebas Neue', sans-serif; font-size: 40px; letter-spacing: 0.02em; color: var(--ink); }
+
+/* ── RETAINER ── */
+.retainer-box { background: var(--off); border: 1px solid var(--border); padding: 36px; margin-bottom: 16px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; }
+.retainer-title { font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+.retainer-body { font-size: 13px; font-weight: 300; color: var(--gray); line-height: 1.7; max-width: 500px; }
+.retainer-price { text-align: right; }
+.retainer-amount { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 0.02em; color: var(--ink); line-height: 1; }
+.retainer-per { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-lt); margin-top: 4px; }
+.retainer-features { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 20px; }
+.rf { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--gray); font-weight: 300; }
+.rf::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--ink); flex-shrink: 0; }
+
+/* ── WHY GRAY AREA ── */
+.why-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.why-item { padding: 28px 0; border-top: 2px solid var(--border); }
+.why-item:first-child, .why-item:nth-child(2), .why-item:nth-child(3) { border-top-color: var(--ink); }
+.why-num { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--border); line-height: 1; margin-bottom: 12px; }
+.why-title { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+.why-body { font-size: 13px; font-weight: 300; color: var(--gray); line-height: 1.7; }
+
+/* ── TERMS ── */
+.terms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.term-item { padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.term-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-lt); margin-bottom: 8px; }
+.term-value { font-size: 14px; font-weight: 400; color: var(--ink); }
+
+/* ── CTA ── */
+.cta-section { padding: 80px 48px; background: var(--ink); }
+.cta-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.3); display: flex; align-items: center; gap: 10px; margin-bottom: 40px; }
+.cta-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 1px; background: rgba(255,255,255,0.3); }
+.cta-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 7vw, 86px); line-height: 0.92; letter-spacing: 0.03em; color: #fff; margin-bottom: 40px; }
+.cta-title .dim { color: rgba(255,255,255,0.2); display: block; }
+.cta-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.btn-cta-primary { background: #fff; color: var(--ink); border: none; padding: 15px 36px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: opacity 0.15s; display: inline-flex; align-items: center; gap: 10px; }
+.btn-cta-primary:hover { opacity: 0.85; }
+.btn-cta-ghost { background: transparent; color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15); padding: 15px 28px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.15s; }
+.btn-cta-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+.cta-note { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.08em; margin-top: 32px; }
+
+/* ── SIGNATURE ── */
+.sig-section { padding: 64px 48px; border-top: 1px solid var(--border); }
+.sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.sig-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-lt); margin-bottom: 48px; }
+.sig-line { border-bottom: 1px solid var(--border-dk); margin-bottom: 10px; height: 40px; }
+.sig-name { font-size: 12px; font-weight: 400; color: var(--ink); }
+.sig-role { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gray); letter-spacing: 0.06em; }
+
+/* ── FOOTER ── */
+.footer { padding: 24px 48px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 0.05em; color: var(--ink); }
+.footer-text { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gray-lt); letter-spacing: 0.08em; }
+
+/* ── STICKY ACCEPT BAR ── */
+.accept-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+  background: var(--ink); border-top: 1px solid #333;
+  padding: 16px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  transform: translateY(100%); transition: transform 0.4s var(--ease);
+}
+.accept-bar.visible { transform: translateY(0); }
+.accept-bar-text { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); }
+.accept-bar-text strong { color: #fff; }
+.accept-bar-actions { display: flex; gap: 10px; }
+.btn-ab-accept { background: #fff; color: var(--ink); border: none; padding: 10px 24px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: opacity 0.15s; }
+.btn-ab-accept:hover { opacity: 0.8; }
+.btn-ab-decline { background: transparent; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.15); padding: 10px 20px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.15s; }
+.btn-ab-decline:hover { color: #fff; }
+
+/* ── ACCEPTED STATE ── */
+.accepted-banner {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 201;
+  background: #0D2B1A; border-top: 1px solid #2ECC71;
+  padding: 16px 48px;
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
+  color: #2ECC71; text-align: center;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .topbar { padding: 0 20px; }
+  .hero { padding: 0 20px 48px; }
+  .section { padding: 56px 20px; }
+  .scope-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .terms-grid { grid-template-columns: 1fr; }
+  .sig-grid { grid-template-columns: 1fr; gap: 40px; }
+  .cta-section { padding: 56px 20px; }
+  .sig-section { padding: 48px 20px; }
+  .footer { padding: 20px; flex-direction: column; gap: 8px; }
+  .hero-meta { flex-wrap: wrap; }
+  .retainer-box { grid-template-columns: 1fr; }
+  .retainer-features { grid-template-columns: 1fr; }
+  .topbar-right { gap: 12px; }
+  .accept-bar { padding: 14px 20px; flex-direction: column; gap: 12px; text-align: center; }
+  .phase { grid-template-columns: 80px 1px 1fr; gap: 0 20px; }
+}
+
+@media print {
+  .topbar, .accept-bar, .accepted-banner { display: none !important; }
+  body { overflow: visible; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo">
+    <span class="logo-word">Gray Area</span>
+    <div class="logo-pipe"></div>
+    <span class="logo-client">Capital Region Co</span>
+  </div>
+  <div class="topbar-right">
+    <a href="#scope" class="nav-link">Scope</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#timeline" class="nav-link">Timeline</a>
+    <button class="btn-accept" onclick="acceptProposal()">Accept Proposal →</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">INTEL</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Proposal No. 2024-CRC-001 · Confidential</div>
+    <h1 class="hero-title">
+      Custom<br>
+      <span class="dim">Intelligence</span>
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-mi">
+        <span class="hero-ml">Prepared By</span>
+        <span class="hero-mv">Gray Area Studio</span>
+      </div>
+      <div class="hero-mi">
+        <span class="hero-ml">Prepared For</span>
+        <span class="hero-mv">Capital Region Co</span>
+      </div>
+      <div class="hero-mi">
+        <span class="hero-ml">Date</span>
+        <span class="hero-mv" id="propDate"></span>
+      </div>
+      <div class="hero-mi">
+        <span class="hero-ml">Valid Until</span>
+        <span class="hero-mv" id="validDate"></span>
+      </div>
+    </div>
+    <p class="hero-body">
+      A fully operational AI-powered intelligence platform built specifically for Capital Region Co's sales and marketing teams — aggregating NY OCM license data, Pistol market data, CRM activity, and internal sales data into a single live command center.
+    </p>
+  </div>
+</section>
+
+<!-- SCOPE -->
+<section class="section" id="scope">
+  <div class="section-eyebrow">01 — Scope of Work</div>
+  <h2 class="section-title">What We're <span class="dim">Building</span></h2>
+  <p class="section-body">Six core systems, built from scratch and integrated into a single platform. Everything your sales and marketing teams need to move faster, waste less time, and never miss a new license again.</p>
+
+  <div class="scope-grid">
+    <div class="scope-item">
+      <div class="scope-num">01</div>
+      <div class="scope-title">NY OCM License Intelligence</div>
+      <div class="scope-body">Automated monitoring of the NY Office of Cannabis Management portal. New licenses, application stage advances, ownership changes, and revocations are captured in real time and pushed to your dashboard and alert system — no more manual checks.</div>
+      <div class="scope-tags">
+        <span class="scope-tag">Web Scraper</span>
+        <span class="scope-tag">Auto Alerts</span>
+        <span class="scope-tag">NY OCM</span>
+        <span class="scope-tag">Live Feed</span>
+      </div>
+    </div>
+    <div class="scope-item">
+      <div class="scope-num">02</div>
+      <div class="scope-title">Pistol Data Integration</div>
+      <div class="scope-body">Direct connection to your Pistol account via API. Market share data, retailer performance, and competitive assortment data flows automatically into the dashboard on a scheduled sync — giving your team live market context alongside every account.</div>
+      <div class="scope-tags">
+        <span class="scope-tag">API Integration</span>
+        <span class="scope-tag">Market Data</span>
+        <span class="scope-tag">Scheduled Sync</span>
+      </div>
+    </div>
+    <div class="scope-item">
+      <div class="scope-num">03</div>
+      <div class="scope-title">CRM Sync</div>
+      <div class="scope-body">Two-way integration with your CRM (HubSpot or Salesforce). Deal stages, contact history, rep assignments, and activity logs sync bidirectionally — so reps can work from the dashboard without double-entering data into two systems.</div>
+      <div class="scope-tags">
+        <span class="scope-tag">HubSpot / Salesforce</span>
+        <span class="scope-tag">Two-Way Sync</span>
+        <span class="scope-tag">Activity Logs</span>
+      </div>
+    </div>
+    <div class="scope-item">
+      <div class="scope-num">04</div>
+      <div class="scope-title">AI Prospect Scoring</div>
+      <div class="scope-body">Every account receives a live AI score (0–100) calculated from license recency, contact history, order frequency, geography, and market signals. The AI surfaces your highest-value opportunities daily and flags at-risk accounts before they churn.</div>
+      <div class="scope-tags">
+        <span class="scope-tag">Anthropic API</span>
+        <span class="scope-tag">Scoring Model</span>
+        <span class="scope-tag">Churn Detection</span>
+      </div>
+    </div>
+    <div class="scope-item">
+      <div class="scope-num">05</div>
+      <div class="scope-title">AI Chat Assistant</div>
+      <div class="scope-body">A natural language interface trained on your actual data. Ask it anything — "which accounts should I call today," "what's happening in the Albany market," "draft an outreach email for Upstate Green" — and get answers grounded in real CRC data, not generic AI responses.</div>
+      <div class="scope-tags">
+        <span class="scope-tag">Anthropic Claude</span>
+        <span class="scope-tag">RAG Architecture</span>
+        <span class="scope-tag">Live Context</span>
+      </div>
+    </div>
+    <div class="scope-item">
+      <div class="scope-num">06</div>
+      <div class="scope-title">Dashboard & Alert System</div>
+      <div class="scope-body">The full production version of the command center mockup — all five views fully functional with live data. Plus a configurable alert engine: set rules for any trigger (new license, stage advance, days since contact) and receive notifications via dashboard, email, or Slack.</div>
+      <div class="scope-tags">
+        <span class="scope-tag">5 Dashboard Views</span>
+        <span class="scope-tag">Alert Engine</span>
+        <span class="scope-tag">Email / Slack</span>
+        <span class="scope-tag">Role-Based Access</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" id="timeline">
+  <div class="section-eyebrow">02 — Timeline</div>
+  <h2 class="section-title">Four Phases.<br><span class="dim">Eight Weeks.</span></h2>
+  <p class="section-body">From kickoff to live platform in 8 weeks. We work in focused phases so you see real progress every two weeks and can give feedback before we move forward.</p>
+
+  <div class="timeline">
+    <div class="phase">
+      <div class="phase-label">
+        <div class="phase-num">01</div>
+        <div class="phase-dur">Weeks 1–2</div>
+      </div>
+      <div class="phase-line"></div>
+      <div class="phase-content">
+        <div class="phase-title">Foundation & Data Architecture</div>
+        <div class="phase-body">Set up the backend infrastructure, connect your data sources, and build the core database schema. This is where we do the deep technical work — API connections, scraper configuration, and data pipeline setup — so every subsequent phase builds on a solid foundation.</div>
+        <div class="phase-deliverables">
+          <div class="phase-del">Backend infrastructure deployed (database, API layer, hosting)</div>
+          <div class="phase-del">NY OCM scraper live and monitoring</div>
+          <div class="phase-del">Pistol API connection and first data sync</div>
+          <div class="phase-del">CRM OAuth connection established</div>
+          <div class="phase-del">Internal spreadsheet import pipeline configured</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">
+        <div class="phase-num">02</div>
+        <div class="phase-dur">Weeks 3–4</div>
+      </div>
+      <div class="phase-line"></div>
+      <div class="phase-content">
+        <div class="phase-title">AI Engine & Scoring</div>
+        <div class="phase-body">Build the AI scoring model and integrate the Anthropic API with your real account data. By end of Week 4, the AI assistant will be able to answer real questions about real CRC accounts — not demo data.</div>
+        <div class="phase-deliverables">
+          <div class="phase-del">AI prospect scoring model trained on CRC account data</div>
+          <div class="phase-del">Churn risk detection logic built and tested</div>
+          <div class="phase-del">AI chat assistant connected to live data via RAG</div>
+          <div class="phase-del">Outreach email drafting capability live</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">
+        <div class="phase-num">03</div>
+        <div class="phase-dur">Weeks 5–6</div>
+      </div>
+      <div class="phase-line"></div>
+      <div class="phase-content">
+        <div class="phase-title">Dashboard & Alert System</div>
+        <div class="phase-body">Convert the prototype into a fully functional production application. All five dashboard views go live with real data. The alert engine is built and configured with your initial rule set.</div>
+        <div class="phase-deliverables">
+          <div class="phase-del">All 5 dashboard views live with real CRC data</div>
+          <div class="phase-del">Alert engine built with email and Slack notifications</div>
+          <div class="phase-del">Add Account form connected to database</div>
+          <div class="phase-del">Role-based user access (admin, manager, rep views)</div>
+          <div class="phase-del">CSV export functionality</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">
+        <div class="phase-num">04</div>
+        <div class="phase-dur">Weeks 7–8</div>
+      </div>
+      <div class="phase-line"></div>
+      <div class="phase-content">
+        <div class="phase-title">Testing, Training & Launch</div>
+        <div class="phase-body">Full QA pass, team onboarding, and go-live. We train your reps and managers on the platform, document everything, and stay on-call for the first two weeks post-launch to handle any issues immediately.</div>
+        <div class="phase-deliverables">
+          <div class="phase-del">Full QA and bug fixing across all views</div>
+          <div class="phase-del">Team onboarding sessions (sales reps + management)</div>
+          <div class="phase-del">Documentation and user guide delivered</div>
+          <div class="phase-del">Platform goes live</div>
+          <div class="phase-del">Two-week post-launch support period</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="section-eyebrow">03 — Investment</div>
+  <h2 class="section-title">Transparent <span class="dim">Pricing</span></h2>
+  <p class="section-body">One fixed project fee to build the platform, then a monthly retainer to keep it running, updated, and improving. No hidden costs, no hourly surprises.</p>
+
+  <!-- Line items -->
+  <table class="line-table">
+    <thead>
+      <tr>
+        <th>Deliverable</th>
+        <th>Phase</th>
+        <th>Investment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Backend infrastructure, database & hosting setup
+          <div class="line-desc">Server configuration, PostgreSQL database, API layer, CI/CD pipeline</div>
+        </td>
+        <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);white-space:nowrap;">Phase 1</td>
+        <td>$3,500</td>
+      </tr>
+      <tr>
+        <td>
+          NY OCM license scraper & monitoring system
+          <div class="line-desc">Automated scraper, change detection, historical data import</div>
+        </td>
+        <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);white-space:nowrap;">Phase 1</td>
+        <td>$4,000</td>
+      </tr>
+      <tr>
+        <td>
+          Pistol API integration & data pipeline
+          <div class="line-desc">API connection, scheduled sync, data normalization layer</div>
+        </td>
+        <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);white-space:nowrap;">Phase 1</td>
+        <td>$3,000</td>
+      </tr>
+      <tr>
+        <td>
+          CRM integration (HubSpot or Salesforce)
+          <div class="line-desc">OAuth connection, two-way contact & deal sync, activity log import</div>
+        </td>
+        <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);white-space:nowrap;">Phase 1</td>
+        <td>$3,500</td>
+      </tr>
+      <tr>
+        <td>
+          AI prospect scoring model
+          <div class="line-desc">Custom scoring algorithm, churn risk detection, daily score refresh</div>
+        </td>
+        <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);white-space:nowrap;">Phase 2</td>
+        <td>$5,500</td>
+      </tr>
+      <tr>
+        <td>
+          AI chat assistant (RAG architecture)
+          <div class="line-desc">Anthropic Claude integration, live data context, outreach drafting</div>
+        </td>
+        <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);white-space:nowrap;">Phase 2</td>
+        <td>$5,000</td>
+      </tr>
+      <tr>
+        <td>
+          Full dashboard build (5 views, production)
+          <div class="line-desc">All views with live data, filters, export, role-based access</div>
+        </td>
+        <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);white-space:nowrap;">Phase 3</td>
+        <td>$6,000</td>
+      </tr>
+      <tr>
+        <td>
+          Alert engine (email + Slack notifications)
+          <div class="line-desc">Configurable rules, real-time triggers, notification delivery</div>
+        </td>
+        <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);white-space:nowrap;">Phase 3</td>
+        <td>$2,500</td>
+      </tr>
+      <tr>
+        <td>
+          QA, onboarding & launch support
+          <div class="line-desc">Testing, team training sessions, documentation, 2-week support</div>
+        </td>
+        <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);white-space:nowrap;">Phase 4</td>
+        <td>$2,000</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="line-total">
+    <span class="line-total-lbl">Total Project Investment</span>
+    <span class="line-total-val">$35,000</span>
+  </div>
+
+  <!-- Retainer -->
+  <div class="retainer-box">
+    <div>
+      <div class="retainer-title">Monthly Retainer — Platform Operations</div>
+      <div class="retainer-body">After launch, a monthly retainer keeps the platform running, maintained, and continuously improving. Includes hosting, scraper maintenance, API monitoring, AI cost coverage, and dedicated support hours for new features and data source changes.</div>
+      <div class="retainer-features">
+        <div class="rf">Hosting & infrastructure</div>
+        <div class="rf">OCM scraper maintenance</div>
+        <div class="rf">API monitoring & uptime</div>
+        <div class="rf">Anthropic API costs covered</div>
+        <div class="rf">4 hrs/mo feature development</div>
+        <div class="rf">Priority support & bug fixes</div>
+        <div class="rf">Monthly performance report</div>
+        <div class="rf">Data source updates</div>
+      </div>
+    </div>
+    <div class="retainer-price">
+      <div class="retainer-amount">$1,800</div>
+      <div class="retainer-per">Per Month</div>
+    </div>
+  </div>
+
+  <p class="price-note">
+    Project fee is billed in three milestones: 40% on contract signing, 30% at Phase 2 completion, 30% at launch.<br>
+    Monthly retainer begins on the first full month after launch. Cancel anytime with 30 days notice.<br>
+    Pricing valid for 30 days from proposal date.
+  </p>
+</section>
+
+<!-- WHY GRAY AREA -->
+<section class="section">
+  <div class="section-eyebrow">04 — Why Gray Area</div>
+  <h2 class="section-title">Built for<br><span class="dim">Cannabis.</span></h2>
+  <p class="section-body">We don't hand you a generic SaaS tool and call it a day. Every piece of this platform is built specifically for how Capital Region Co operates in the NY market.</p>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div class="why-title">Industry Specific</div>
+      <div class="why-body">We understand the NY OCM licensing process, the Pistol data structure, and the sales motion for a cannabis distributor. No time wasted explaining your business to a generalist agency.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div class="why-title">You Own Everything</div>
+      <div class="why-body">Your code, your database, your data. No vendor lock-in. If you ever want to take the platform in-house or switch partners, you walk away with everything fully documented and portable.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div class="why-title">Fixed Price. Real Deadline.</div>
+      <div class="why-body">This is a fixed-fee engagement — not hourly. If it takes us longer, that's on us. You know exactly what you're paying before a single line of code is written.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div class="why-title">You've Already Seen It</div>
+      <div class="why-body">The mockup dashboard you reviewed was built by us in a single session. The production version is that, with all your real data powering it. You know exactly what you're getting.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">05</div>
+      <div class="why-title">AI That Actually Works</div>
+      <div class="why-body">We use Anthropic's Claude — the same AI behind this proposal and the mockup — with your actual account data as context. The assistant knows your accounts, not just cannabis in general.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">06</div>
+      <div class="why-title">ROI in Week One</div>
+      <div class="why-body">Your team currently spends hours manually checking OCM, cross-referencing spreadsheets, and chasing stale data. Day one of launch, that stops. At 18 hours saved per week, the platform pays for itself in under 4 months.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TERMS -->
+<section class="section">
+  <div class="section-eyebrow">05 — Terms</div>
+  <h2 class="section-title">Simple <span class="dim">Terms</span></h2>
+  <div class="terms-grid">
+    <div class="term-item">
+      <div class="term-label">Project Start</div>
+      <div class="term-value">Within 5 business days of signed contract and first payment</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Estimated Launch</div>
+      <div class="term-value">8 weeks from kickoff</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Payment Schedule</div>
+      <div class="term-value">40% on signing · 30% at Phase 2 · 30% at launch</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Payment Methods</div>
+      <div class="term-value">ACH, wire transfer, or check</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Revisions</div>
+      <div class="term-value">Two rounds of revisions included per phase</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">IP Ownership</div>
+      <div class="term-value">Full ownership transfers to Capital Region Co upon final payment</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Confidentiality</div>
+      <div class="term-value">Mutual NDA in effect. All CRC data stays private.</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Proposal Valid Until</div>
+      <div class="term-value" id="validDateTerms"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-eyebrow">Ready to build</div>
+  <h2 class="cta-title">
+    Let's Make<br>
+    <span class="dim">It Real.</span>
+  </h2>
+  <div class="cta-actions">
+    <button class="btn-cta-primary" onclick="acceptProposal()">
+      Accept This Proposal
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <button class="btn-cta-ghost" onclick="window.print()">↓ Download PDF</button>
+  </div>
+  <p class="cta-note">Questions? Reply to this proposal or contact Gray Area directly. We'll respond within 24 hours.</p>
+</section>
+
+<!-- SIGNATURE -->
+<section class="sig-section">
+  <div class="section-eyebrow">06 — Agreement</div>
+  <div class="sig-grid">
+    <div>
+      <div class="sig-label">Gray Area Studio — Authorized Signature</div>
+      <div class="sig-line"></div>
+      <div class="sig-name">Gray Area Studio</div>
+      <div class="sig-role">Service Provider · grayarea.io</div>
+    </div>
+    <div>
+      <div class="sig-label">Capital Region Co — Authorized Signature</div>
+      <div class="sig-line" id="clientSigLine"></div>
+      <div class="sig-name" id="clientSigName">Capital Region Co</div>
+      <div class="sig-role">Client · Date: <span id="sigDate">__________________</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">Gray Area</div>
+  <div class="footer-text">Proposal 2024-CRC-001 · Confidential · Valid 30 days from issue</div>
+</div>
+
+<!-- STICKY ACCEPT BAR -->
+<div class="accept-bar" id="acceptBar">
+  <div class="accept-bar-text">
+    <strong>Custom Intelligence Platform</strong> · $35,000 project + $1,800/mo retainer
+  </div>
+  <div class="accept-bar-actions">
+    <button class="btn-ab-decline" onclick="dismissBar()">Maybe Later</button>
+    <button class="btn-ab-accept" onclick="acceptProposal()">Accept Proposal →</button>
+  </div>
+</div>
+
+<!-- ACCEPTED BANNER -->
+<div class="accepted-banner" id="acceptedBanner">
+  ✓ Proposal accepted — Gray Area will be in touch within 24 hours to schedule your kickoff call.
+</div>
+
+<script>
+// Dates
+const now = new Date();
+const validDate = new Date(now);
+validDate.setDate(validDate.getDate() + 30);
+
+const fmtDate = d => d.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+document.getElementById('propDate').textContent = fmtDate(now);
+document.getElementById('validDate').textContent = fmtDate(validDate);
+document.getElementById('validDateTerms').textContent = fmtDate(validDate);
+
+// Show sticky bar on scroll
+let barShown = false;
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 500 && !barShown && !localStorage.getItem('proposalAccepted')) {
+    document.getElementById('acceptBar').classList.add('visible');
+    barShown = true;
+  }
+});
+
+function dismissBar() {
+  document.getElementById('acceptBar').classList.remove('visible');
+}
+
+function acceptProposal() {
+  document.getElementById('acceptBar').classList.remove('visible');
+  document.getElementById('acceptedBanner').style.display = 'block';
+
+  // Update signature date
+  document.getElementById('sigDate').textContent = fmtDate(now);
+  document.getElementById('sigDate').style.fontWeight = '500';
+  document.getElementById('clientSigLine').style.borderBottomColor = '#2ECC71';
+
+  // Scroll to signature
+  document.querySelector('.sig-section').scrollIntoView({behavior:'smooth'});
+
+  localStorage.setItem('proposalAccepted', 'true');
+}
+
+// Smooth scroll nav
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+// Phase animations on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.style.animationPlayState = 'running';
+  });
+}, {threshold: 0.1});
+
+document.querySelectorAll('.phase, .scope-item, .why-item').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
